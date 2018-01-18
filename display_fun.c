@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:11:13 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 16:36:25 by sderet           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:10:11 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_pixel(t_image *img, t_pos *pos, int *col)
 		((int)pos->y * img->line_len)] = (char)0;
 }
 
-void	print_pixelc(t_image *img, t_pos *pos, int nb_iter)
+void	print_pixelc(t_image *img, t_pos *pos, int nb_iter, int precis)
 {
 	int colo[3];
 	int a;
@@ -36,8 +36,8 @@ void	print_pixelc(t_image *img, t_pos *pos, int nb_iter)
 	colo[0] = 255;
 	colo[1] = 255;
 	colo[2] = 0;
-	if (nb_iter < pos->precis)
-		colo[2] = (1000 * nb_iter * 5) / pos->precis;
+	if (nb_iter < precis)
+		colo[2] = (1000 * nb_iter * 5) / precis;
 	else
 		while (++a < 3)
 			colo[a] = 0;

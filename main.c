@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:27:51 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 16:36:37 by sderet           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:54:39 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,31 @@ int		std_err(int err)
 int		keypress(int keycode, t_bigg *big)
 {
 	ft_putnbr(keycode);
-	if (keycode == 126)
+	if (keycode > 122 && keycode < 127)
 	{
-		big->zoom += big->zoom / 10;
-		mandelbrot(&(big->img), big->zoom);
+		if (keycode == 126 || keycode == 125)
+			big->py += (keycode == 125 ? 10 : -10);
+		else
+			big->px += (keycode == 124 ? 10 : -10);
+		mandelbrot(&(big->img), big->zoom, big->prec, big->px, big->py);
 		mlx_put_image_to_window(big->mlx.mlx, big->mlx.win,
 				big->mlx.image, 0, 0);
 		mlx_loop(big->mlx.mlx);
 	}
-	if (keycode == 125)
+	if (keycode == 14 || keycode == 2)
 	{
-		big->zoom -= big->zoom / 10;
-		mandelbrot(&(big->img), big->zoom);
+		big->zoom += (keycode == 14 ? big->zoom / 10 : -(big->zoom / 10));
+		big->zoom = (big->zoom < 1 ? 1 : big->zoom - 1 + 1);
+		mandelbrot(&(big->img), big->zoom, big->prec, big->px, big->py);
+		mlx_put_image_to_window(big->mlx.mlx, big->mlx.win,
+				big->mlx.image, 0, 0);
+		mlx_loop(big->mlx.mlx);
+	}
+	if (keycode == 32 || keycode == 34)
+	{
+		big->prec += (keycode == 32 ? -15 : 15);
+		big->prec = (big->prec < 20 ? 20 : big->prec - 1 + 1);
+		mandelbrot(&(big->img), big->zoom, big->prec, big->px, big->py);
 		mlx_put_image_to_window(big->mlx.mlx, big->mlx.win,
 				big->mlx.image, 0, 0);
 		mlx_loop(big->mlx.mlx);
@@ -55,9 +68,12 @@ int		main(int argc, char **argv)
 		return (std_err(argc != 2 ? 1 : 2));
 	argv[1][1] = argv[0][1];
 	big.zoom = 400;
+	big.prec = 50;
+	big.px = 0;
+	big.py = 0;
 	big.mlx.mlx = mlx_init();
 	window_creation(&(big.img), &(big.mlx));
-	mandelbrot(&(big.img), big.zoom);
+	mandelbrot(&(big.img), big.zoom, big.prec, big.px, big.py);
 	mlx_put_image_to_window(big.mlx.mlx, big.mlx.win, big.mlx.image, 0, 0);
 	mlx_key_hook(big.mlx.win, &keypress, &big);
 	mlx_loop(big.mlx.mlx);

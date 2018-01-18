@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:36:53 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 15:51:40 by sderet           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:51:44 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_pos
 {
 	double x;
 	double y;
-	int precis;
 }				t_pos;
 
 typedef struct	s_bigg
@@ -56,18 +55,36 @@ typedef struct	s_bigg
 	t_image	img;
 	t_mmlx	mlx;
 	int		zoom;
+	int		prec;
+	double	px;
+	double	py;
 }				t_bigg;
 
+/*
+**	Prints one pixel on pos in img. Colors are determined by
+**	the first 3 ints in col. They are, in order, Blue Green and
+**	Red. They range from 0 to 255.
+*/
 void			print_pixel(t_image *img, t_pos *pos, int *col);
 
-void			print_pixelc(t_image *img, t_pos *pos, int nb_iter);
+/*
+**	Prints one pixel on pos in img. Color is based on
+**	different settings, in order to make a good looking
+**	fractol.
+*/
+void			print_pixelc(t_image *img, t_pos *pos, int nb_iter, int precis);
 
-void			mandelbrot(t_image *img, int zoom);
+/*
+**	Self-explanatory. Prints the mandelbrot fractal on img.
+**	Precis indicates the precision of the fractal and zoom
+**	indicates the level of zoom. px and py are used in
+**	moving the fractal.
+*/
+void			mandelbrot(t_image *img, int zoom, int precis, double px, double py);
 
+/*
+**	Creates the image img.
+*/
 void			window_creation(t_image *img, t_mmlx *mlx);
-
-int				get_err(t_pos ***pos);
-
-void			print_line(t_image *image, t_pos pos1, t_pos pos);
 
 #endif
