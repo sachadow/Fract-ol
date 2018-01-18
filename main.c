@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:27:51 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 17:54:39 by sderet           ###   ########.fr       */
+/*   Updated: 2018/01/18 19:04:27 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		keypress(int keycode, t_bigg *big)
 	if (keycode > 122 && keycode < 127)
 	{
 		if (keycode == 126 || keycode == 125)
-			big->py += (keycode == 125 ? 10 : -10);
+			big->py += (keycode == 125 ? 80 : -80);
 		else
-			big->px += (keycode == 124 ? 10 : -10);
+			big->px += (keycode == 124 ? 80 : -80);
 		mandelbrot(&(big->img), big->zoom, big->prec, big->px, big->py);
 		mlx_put_image_to_window(big->mlx.mlx, big->mlx.win,
 				big->mlx.image, 0, 0);
@@ -39,6 +39,8 @@ int		keypress(int keycode, t_bigg *big)
 	}
 	if (keycode == 14 || keycode == 2)
 	{
+		big->py += (keycode == 14 ? big->img.maxy / 10 : -big->img.maxy / 10);
+		big->px += (keycode == 14 ? big->img.maxx / 10 : -big->img.maxx / 10);
 		big->zoom += (keycode == 14 ? big->zoom / 10 : -(big->zoom / 10));
 		big->zoom = (big->zoom < 1 ? 1 : big->zoom - 1 + 1);
 		mandelbrot(&(big->img), big->zoom, big->prec, big->px, big->py);
