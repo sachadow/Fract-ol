@@ -6,13 +6,13 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 17:04:17 by sderet            #+#    #+#             */
-/*   Updated: 2018/02/06 14:20:54 by sderet           ###   ########.fr       */
+/*   Updated: 2018/02/02 17:39:28 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_image *img, t_bigg big)
+void	julia(t_image *img, t_bigg big)
 {
 	int			a;
 	double		tmp;
@@ -25,10 +25,10 @@ void	mandelbrot(t_image *img, t_bigg big)
 		pos.x = -1;
 		while (++pos.x < img->maxx)
 		{
-			im.cx = pos.x / big.zoom + (-2.1 + (big.px / big.zoom));
-			im.cy = pos.y / big.zoom + (-1.2 + (big.py / big.zoom));
-			im.zx = 0;
-			im.zy = 0;
+			im.cx = big.jx;
+			im.cy = big.jy;
+			im.zx = pos.x / big.zoom + (-2.1 + (big.px / big.zoom));
+			im.zy = pos.y / big.zoom + (-1.2 + (big.py / big.zoom));
 			a = -1;
 			while (++a < big.prec && (im.zx * im.zx) + (im.zy * im.zy) < 4)
 			{

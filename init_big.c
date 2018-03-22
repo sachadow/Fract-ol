@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   win_crea.c                                         :+:      :+:    :+:   */
+/*   init_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 16:05:17 by sderet            #+#    #+#             */
-/*   Updated: 2018/02/05 17:39:31 by sderet           ###   ########.fr       */
+/*   Created: 2018/02/02 17:49:25 by sderet            #+#    #+#             */
+/*   Updated: 2018/02/02 17:51:26 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx/mlx.h"
-#include <stdlib.h>
-#include <fcntl.h>
 
-void	window_creation(t_image *img, t_mmlx *mlx)
+void	init_big(t_bigg *big)
 {
-	img->maxx = 1500;
-	img->maxy = 1000;
-	mlx->win = mlx_new_window(mlx->mlx, img->maxx, img->maxy, "Fractol");
-	mlx->image = mlx_new_image(mlx->mlx, img->maxx, img->maxy);
-	img->map = mlx_get_data_addr(mlx->image,
-			&img->bpp, &img->line_len, &img->endian);
+	big->zoom = 400;
+	big->prec = 50;
+	big->px = 0;
+	big->py = 0;
+	big->jx = 0;
+	big->jy = 0;
+	big->movej = 0;
+	big->fract[0] = &mandelbrot;
+	big->fract[1] = &julia;
+	big->fract[2] = &burning_ship;
 }

@@ -6,15 +6,16 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:36:53 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 17:51:44 by sderet           ###   ########.fr       */
+/*   Updated: 2018/02/05 17:28:08 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_HEAD_H
-# define FDF_HEAD_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
+# include <math.h>
 
 # define ABS(x) ((x) > 0 ? x : -(x))
 
@@ -54,11 +55,21 @@ typedef struct	s_bigg
 {
 	t_image	img;
 	t_mmlx	mlx;
+	char	*name;
 	int		zoom;
 	int		prec;
 	double	px;
 	double	py;
+	double	jx;
+	double	jy;
+	int		movej;
+	int		index;
+	void	(*fract[3])(t_image *, struct s_bigg);
 }				t_bigg;
+
+void			init_big(t_bigg *big);
+
+void			zoom(int keycode, t_bigg *big);
 
 /*
 **	Prints one pixel on pos in img. Colors are determined by
@@ -80,7 +91,11 @@ void			print_pixelc(t_image *img, t_pos *pos, int nb_iter, int precis);
 **	indicates the level of zoom. px and py are used in
 **	moving the fractal.
 */
-void			mandelbrot(t_image *img, int zoom, int precis, double px, double py);
+void			mandelbrot(t_image *img, t_bigg big);
+
+void			julia(t_image *img, t_bigg big);
+
+void			burning_ship(t_image *img, t_bigg big);
 
 /*
 **	Creates the image img.

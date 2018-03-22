@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   win_crea.c                                         :+:      :+:    :+:   */
+/*   zoom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 16:05:17 by sderet            #+#    #+#             */
-/*   Updated: 2018/02/05 17:39:31 by sderet           ###   ########.fr       */
+/*   Created: 2018/02/02 18:03:30 by sderet            #+#    #+#             */
+/*   Updated: 2018/02/02 18:04:50 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx/mlx.h"
-#include <stdlib.h>
-#include <fcntl.h>
 
-void	window_creation(t_image *img, t_mmlx *mlx)
+void	zoom(int keycode, t_bigg *big)
 {
-	img->maxx = 1500;
-	img->maxy = 1000;
-	mlx->win = mlx_new_window(mlx->mlx, img->maxx, img->maxy, "Fractol");
-	mlx->image = mlx_new_image(mlx->mlx, img->maxx, img->maxy);
-	img->map = mlx_get_data_addr(mlx->image,
-			&img->bpp, &img->line_len, &img->endian);
+	if (big->px <= 1900000000 && big->py <= 1900000000 &&
+			big->zoom <= 1900000000)
+	{
+		big->py *= (keycode == 14 ? 1.1 : (1 / 1.1));
+		big->px *= (keycode == 14 ? 1.1 : (1 / 1.1));
+		big->zoom *= (keycode == 14 ? 1.1 : (1 / 1.1));
+		big->zoom = (big->zoom < 1 ? 1 : big->zoom - 1 + 1);
+	}
+	else if (keycode == 2)
+	{
+		big->py *= 1 / 1.1;
+		big->px *= 1 / 1.1;
+		big->zoom *= 1 / 1.1;
+	}
 }

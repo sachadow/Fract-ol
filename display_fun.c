@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:11:13 by sderet            #+#    #+#             */
-/*   Updated: 2018/01/18 18:14:37 by sderet           ###   ########.fr       */
+/*   Updated: 2018/02/02 17:34:13 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,21 @@ void	print_pixelc(t_image *img, t_pos *pos, int nb_iter, int precis)
 {
 	int colo[3];
 	int a;
+	int c;
 
+	c = (100 * nb_iter) / precis;
 	a = -1;
 	colo[0] = 255;
 	colo[1] = 255;
 	colo[2] = 0;
-	if (nb_iter < precis)
-		colo[2] = (1000 * nb_iter * 5) / precis;
+	if (nb_iter <= nb_iter / precis)
+		colo[2] = 0;
+	else if (nb_iter < precis)
+	{
+		colo[0] = (1000 * nb_iter) / precis;
+		colo[1] = (100 * nb_iter) / precis;
+		colo[2] = (10000 * nb_iter) / precis;
+	}
 	else
 		while (++a < 3)
 			colo[a] = 0;

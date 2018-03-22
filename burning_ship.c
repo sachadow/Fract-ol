@@ -6,13 +6,13 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 17:04:17 by sderet            #+#    #+#             */
-/*   Updated: 2018/02/06 14:20:54 by sderet           ###   ########.fr       */
+/*   Updated: 2018/02/02 17:38:35 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_image *img, t_bigg big)
+void	burning_ship(t_image *img, t_bigg big)
 {
 	int			a;
 	double		tmp;
@@ -33,8 +33,8 @@ void	mandelbrot(t_image *img, t_bigg big)
 			while (++a < big.prec && (im.zx * im.zx) + (im.zy * im.zy) < 4)
 			{
 				tmp = im.zx;
-				im.zx = (im.zx * im.zx) - (im.zy * im.zy) + im.cx;
-				im.zy = 2 * tmp * im.zy + im.cy;
+				im.zx = fabs((im.zx * im.zx) - (im.zy * im.zy) + im.cx);
+				im.zy = fabs(2 * tmp * im.zy + im.cy);
 			}
 			print_pixelc(img, &pos, a, big.prec);
 		}

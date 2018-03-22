@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:04:45 by sderet            #+#    #+#             */
-/*   Updated: 2017/12/21 17:49:59 by sderet           ###   ########.fr       */
+/*   Updated: 2018/02/02 15:58:15 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+char			*ft_strlow(char *str);
 
 int				get_next_line(const int fd, char **line);
 

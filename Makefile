@@ -6,12 +6,12 @@
 #    By: sderet <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/13 15:33:21 by sderet            #+#    #+#              #
-#    Updated: 2018/01/16 18:15:26 by sderet           ###   ########.fr        #
+#    Updated: 2018/02/02 18:46:52 by sderet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
-SRCS = main.c win_crea.c mandelbrot.c display_fun.c
+SRCS = main.c win_crea.c mandelbrot.c display_fun.c julia.c burning_ship.c init_big.c zoom.c
 HEAD = fractol.h
 LIBS = -L./libft -lft -L./minilibx -lmlx
 FRAMEW = -framework OpenGL -framework Appkit
